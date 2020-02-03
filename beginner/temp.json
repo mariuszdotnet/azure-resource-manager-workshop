@@ -1,0 +1,25 @@
+{
+    "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
+    "contentVersion": "1.0.0.0",
+    "parameters": {},
+    "variables": {},
+    "resources": [{
+        // this is a comment
+        /*
+        THis is a comment too
+        */
+        "name": "storageaccount1",
+        "type": "Microsoft.Storage/storageAccounts", // this show up as comsmo's DB in the portal
+        "apiVersion": "2015-06-15",
+        "location": "[resourceGroup().location]",
+        "tags": {
+            "displayName": "storageaccount1"
+        },
+        "properties": {
+            "accountType": "Standard_LRS"
+        }
+    }
+    ],
+    "outputs": {},
+    "functions": []
+}
