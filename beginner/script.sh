@@ -12,7 +12,7 @@ az group create \
 templateFile="template.json"
 
 az group deployment create \
-  --name blanktemplate \
+  --name addstorage \
   --resource-group $myResoruceGroup \
   --template-file $templateFile
 

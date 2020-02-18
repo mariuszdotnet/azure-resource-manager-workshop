@@ -3,7 +3,24 @@
     "contentVersion": "1.0.0.0",
     "parameters": {},
     "variables": {},
-    "resources": [],
+    "resources": [
+        {
+            "name": "storageaccount1mk",
+            "type": "Microsoft.Storage/storageAccounts",
+            "apiVersion": "2019-04-01",
+            "location": "[resourceGroup().location]",
+            "tags": {
+                "displayName": "storageaccount1mk"
+            },
+            "sku":{
+                "name":"Standard_LRS"
+            },
+            "kind":"StorageV2",
+            "properties": {
+                "supportsHttpsTrafficOnly": true
+            }
+        }
+    ],
     "outputs": {},
     "functions": []
 }
