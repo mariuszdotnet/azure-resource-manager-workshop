@@ -12,7 +12,8 @@ az group create \
 templateFile="template.json"
 
 az group deployment create \
-  --name addwebapp \
+  --handle-extended-json-format \
+  --name addtags \
   --resource-group $myResoruceGroup \
   --template-file $templateFile \
   --parameters storagePrefix=store storageSKU=Standard_LRS webAppName=demoapp
