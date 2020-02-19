@@ -24,6 +24,10 @@
         "location": {
             "type": "string",
             "defaultValue": "[resourceGroup().location]"
+        },
+        "appServicePlanName": {
+            "type": "string",
+            "defaultValue": "exampleplan"
         }
     },
     "variables": {
@@ -44,6 +48,26 @@
             "kind":"StorageV2",
             "properties": {
                 "supportsHttpsTrafficOnly": true
+            }
+        },
+        {
+            "type": "Microsoft.Web/serverfarms",
+            "apiVersion": "2016-09-01",
+            "name": "[parameters('appServicePlanName')]",
+            "location": "[parameters('location')]",
+            "sku": {
+                "name": "B1",
+                "tier": "Basic",
+                "size": "B1",
+                "family": "B",
+                "capacity": 1
+            },
+            "kind": "linux",
+            "properties": {
+                "perSiteScaling": false,
+                "reserved": true,
+                "targetWorkerCount": 0,
+                "targetWorkerSizeId": 0
             }
         }
     ],

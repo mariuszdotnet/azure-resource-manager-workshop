@@ -12,7 +12,7 @@ az group create \
 templateFile="template.json"
 
 az group deployment create \
-  --name addoutputs \
+  --name addappserviceplan \
   --resource-group $myResoruceGroup \
   --template-file $templateFile \
   --parameters storagePrefix=store storageSKU=Standard_LRS
