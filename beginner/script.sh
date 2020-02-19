@@ -12,10 +12,10 @@ az group create \
 templateFile="template.json"
 
 az group deployment create \
-  --name addnameparameter \
+  --name addnamevariable  \
   --resource-group $myResoruceGroup \
   --template-file $templateFile \
-  --parameters storageName=storageaccount1mk
+  --parameters storagePrefix=store storageSKU=Standard_LRS
 
 # Verify the deployment in the portal
 # Az docs - https://docs.microsoft.com/en-us/cli/azure/group/deployment?view=azure-cli-latest
