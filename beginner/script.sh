@@ -12,10 +12,10 @@ az group create \
 templateFile="template.json"
 
 az group deployment create \
-  --name addappserviceplan \
+  --name addwebapp \
   --resource-group $myResoruceGroup \
   --template-file $templateFile \
-  --parameters storagePrefix=store storageSKU=Standard_LRS
+  --parameters storagePrefix=store storageSKU=Standard_LRS webAppName=demoapp
 
 # Verify the deployment in the portal
 # Az docs - https://docs.microsoft.com/en-us/cli/azure/group/deployment?view=azure-cli-latest
