@@ -1,5 +1,5 @@
 {
-  "$schema": "https://schema.management.azure.com/schemas/2015-01-01/deploymentTemplate.json#",
+  "$schema": "https://schema.management.azure.com/schemas/2019-04-01/deploymentTemplate.json#",
   "contentVersion": "1.0.0.0",
   "parameters": {
     "adminUsername": {
@@ -65,15 +65,19 @@
   },
   "resources": [
     {
-      "type": "Microsoft.Storage/storageAccounts",
-      "apiVersion": "2018-11-01",
-      "name": "[variables('storageAccountName')]",
-      "location": "[parameters('location')]",
-      "sku": {
-        "name": "Standard_LRS"
-      },
-      "kind": "Storage",
-      "properties": {}
+      "name": "linkedTemplate",
+      "type": "Microsoft.Resources/deployments",
+      "apiVersion": "2018-05-01",
+      "properties": {
+          "mode": "Incremental",
+          "templateLink": {
+              "uri":"https://raw.githubusercontent.com/mariuszdotnet/azure-resource-manager-workshop/master/advanced/linked.template.json"
+          },
+          "parameters": {
+              "storageAccountName":{"value": "[variables('storageAccountName')]"},
+              "location":{"value": "[parameters('location')]"}
+          }
+      }
     },
     {
       "type": "Microsoft.Network/publicIPAddresses",
@@ -170,7 +174,7 @@
       "name": "[variables('vmName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-        "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]",
+        "linkedTemplate",
         "[resourceId('Microsoft.Network/networkInterfaces/', variables('nicName'))]"
       ],
       "properties": {
@@ -210,7 +214,7 @@
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": true,
-            "storageUri": "[reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))).primaryEndpoints.blob]"
+            "storageUri": "[reference('linkedTemplate').outputs.storageUri.value]"
           }
         }
       }
