@@ -6,6 +6,8 @@ region="canada central"
 # Deploy the Empty Template
 templateFile="template.json"
 
+adminPassword="$(openssl rand -base64 32)"
+
 # Create the resoruce group and resoruces for DEV
 az group create \
   --name $myResoruceGroup \
@@ -13,14 +15,10 @@ az group create \
 
 az group deployment create \
   --handle-extended-json-format \
-  --name copyresoruces  \
+  --name deploymentorder  \
   --resource-group $myResoruceGroup \
-  --template-file $templateFile
-
-# To list all three storage accounts, omit the --name parameter:
-#echo "Enter the Resource Group name:" &&
-#read resourceGroupName &&
-az storage account list --resource-group $myResoruceGroup
+  --template-file $templateFile \
+  --parameters adminUsername=adminuser adminPassword=$adminPassword dnsLabelPrefix=makolo
 
 # Verify the deployment in the portal
 # Az docs - https://docs.microsoft.com/en-us/cli/azure/group/deployment?view=azure-cli-latest
